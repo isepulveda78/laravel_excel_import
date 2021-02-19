@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-    protected $fillable = ['user_id', 'style', 'upc', 'total', 'retail', 'total_cost', 'total_wholesale', 'sales', 'sell_through', 'ranking', 'season'];
+    protected $fillable = ['style', 'upc', 'total', 'retail', 'total_cost', 'total_wholesale', 'sales', 'sell_through', 'ranking', 'season'];
 
-    public function user()
+    public function pdf()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Pdf::class);
     }
 
+    public function hasPdf($pdfId)
+    {
+        return in_array($pdfId, $this->pdf->pluck('id')->toArray());
+    }
 }

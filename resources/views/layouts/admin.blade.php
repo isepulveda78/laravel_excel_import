@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Kayser-Roth Admin') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/sb-admin-2.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,7 +18,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     
@@ -48,18 +47,24 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-        <!-- Nav Item -->
+           <!-- Nav Item -->
         <li class="nav-item">
-            <a class="nav-link" href="/file">
-                <i class="fas fa-file-upload"></i>
-                <span>Upload</span></a>
+            <a class="nav-link" href="/pdf/create">
+                <i class="fas fa-file-pdf"></i>
+                <span>Create PDF</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('pdf.index') }}">
+                <i class="far fa-eye"></i>
+                <span>View PDF</span></a>
         </li>
 
         <!-- Nav Item -->
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="far fa-file"></i>
-                <span>Files</span></a>
+            <a class="nav-link" href="/file">
+                <i class="fas fa-file-upload"></i>
+                <span>Upload Excel</span></a>
         </li>
 
         <!-- Divider -->
@@ -141,5 +146,8 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+
+<script src="{{ asset('js/app.js') }}"></script>
+ @yield('scripts')
 </body>
 </html>

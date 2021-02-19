@@ -40,7 +40,6 @@ WithChunkReading
     {
       
             return new File([
-                'user_id' => $row['user_id'],
                 'style' => $row['style'],
                 'upc' => $row['upc'],
                 'total' => $row['total'],
@@ -59,7 +58,6 @@ WithChunkReading
         {
             //Used with WithValidation
             return [
-                '*.user_id' => 'required',
                 '*.style' => 'required',
                 '*.upc' => 'required',
                 '*.total' => 'required',
@@ -71,12 +69,6 @@ WithChunkReading
                 '*.ranking' => 'required',
                 '*.season' => 'required',
             ];
-        }
-
-        public function onFailure(Failure ...$failures)
-        {
-            session()->flash('alert', 'Check Headers');
-            return back();
         }
     
         public function onError(\Throwable $e)

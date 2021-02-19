@@ -21,3 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/file', 'FileController@index');
 Route::post('/file/import', 'FileController@store');
+
+Route::resource('/pdf', 'PdfController');
+Route::post('/pdf/store', 'PdfController@store');
+
+Route::get('/download-pdf/{pdf}', 'PdfController@pdf')->name('download.pdf');

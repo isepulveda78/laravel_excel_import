@@ -43,12 +43,17 @@ class FileController extends Controller
             $file = $request->file('file')->store('import');
             $import = new UsersImport;
             $import->import($file);
-        
-            if(!session()->flash('alert', 'Check Headers')){
+
+            if(count($import->failures())) {
+                //dd($import->failures());
+                session()->flash('alert', 'Check Headers');
+                return back();
+            }
             session()->flash('status', 'File uploaded');
             return back();
-            }
-            }else{
+            
+
+        } else {
             session()->flash('alert', 'There is no file to upload.');
             return back();
         }
