@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   </head>
   <body>
   <div class="container">
@@ -18,9 +18,10 @@
     <div class="row">
         @if($pdf->file)
             @foreach($pdf->file as $f)
-            <div class="col-md-4 p-5">
-                <div class="card">
+            <div class="col-md-4 p-2">
+                <div class="card" >
                     <div class="card-body">
+
                                 <ul class="list-unstyled">
                                     <li><b>Style:</b> <span class="float-right">{{ $f->style }}</span></li>
                                     <li><b>Retail:</b> <span class="float-right">{{ $f->retail }}</span></li>

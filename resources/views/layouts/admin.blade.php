@@ -22,6 +22,8 @@
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     
+    <!-- Vue Multiselect -->
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 </head>
 <body>
      <!-- Page Wrapper -->
@@ -51,13 +53,13 @@
         <li class="nav-item">
             <a class="nav-link" href="/pdf/create">
                 <i class="fas fa-file-pdf"></i>
-                <span>Create PDF</span></a>
+                <span>Create PDF from Excel</span></a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('pdf.index') }}">
                 <i class="far fa-eye"></i>
-                <span>View PDF</span></a>
+                <span>View PDF created from Excel</span></a>
         </li>
 
         <!-- Nav Item -->
@@ -65,6 +67,13 @@
             <a class="nav-link" href="/file">
                 <i class="fas fa-file-upload"></i>
                 <span>Upload Excel</span></a>
+        </li>
+
+             <!-- Nav Item -->
+        <li class="nav-item">
+            <a class="nav-link" href="/sap">
+                <i class="fas fa-file-upload"></i>
+            <span>Create PDF from SAP</span></a>
         </li>
 
         <!-- Divider -->
@@ -118,7 +127,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid" id="app">
+            <div class="container-fluid">
                 @yield('content')
             </div>
             <!-- /.container-fluid -->
@@ -149,5 +158,16 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
  @yield('scripts')
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('.file-selector').select2();
+});
+
+$(document).ready(function() {
+    $('.sap-selector').select2();
+});
+</script>
 </body>
 </html>

@@ -53,32 +53,17 @@ class FileController extends Controller
             return back();
             
 
-        } else {
-            session()->flash('alert', 'There is no file to upload.');
-            return back();
-        }
+                } else {
+                    session()->flash('alert', 'There is no file to upload.');
+                    return back();
+                }
       
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }
 
     }
-    private function validateData()
-    {
-        return request()->validate([
-            'user_id' => 'required',
-            'style' => 'required',
-            'upc' => 'required',
-            'total' => 'required',
-            'retail' => 'required',
-            'total_cost' => 'required',
-            'total_wholesale' => 'required',
-            'sales' => 'required',
-            'sell_through' => 'required',
-            'ranking' => 'required',
-            'season' => 'required',
-        ]);
-    }
+
 
     /**
      * Display the specified resource.

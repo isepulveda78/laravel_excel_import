@@ -26,3 +26,5 @@ Route::resource('/pdf', 'PdfController');
 Route::post('/pdf/store', 'PdfController@store');
 
 Route::get('/download-pdf/{pdf}', 'PdfController@pdf')->name('download.pdf');
+
+Route::resource('/sap', 'SAPController');

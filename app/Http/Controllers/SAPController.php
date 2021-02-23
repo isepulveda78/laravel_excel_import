@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Pdf;
-use App\File;
-use PDF as PDFILE;
+use App\SAP;
 use Illuminate\Http\Request;
 
-class PdfController extends Controller
+class SAPController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,9 @@ class PdfController extends Controller
      */
     public function index()
     {
-        return view('pdf.index')->with('pdf', Pdf::all());
+        return view('sap.index');
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +24,7 @@ class PdfController extends Controller
      */
     public function create()
     {
-        return view('pdf.create')->with('files', File::all());
+        //
     }
 
     /**
@@ -37,33 +35,34 @@ class PdfController extends Controller
      */
     public function store(Request $request)
     {
-         $filename = Pdf::create($this->validateData());
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
 
-         if($request->file){
-            $filename->file()->attach($request->file);
-        }
+        $sap = SAP::create([
+            'name' => $request->name
+        ]);
 
-        return redirect(route('pdf.index'));
+        return $sap;
     }
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Filename  $filename
+     * @param  \App\SAP  $sAP
      * @return \Illuminate\Http\Response
      */
-    public function show(Pdf $pdf)
+    public function show(SAP $SAP)
     {
-        return view('pdf.show')->with('pdf', $pdf);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Filename  $filename
+     * @param  \App\SAP  $sAP
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pdf $pdf)
+    public function edit(SAP $SAP)
     {
         //
     }
@@ -72,10 +71,10 @@ class PdfController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Filename  $filename
+     * @param  \App\SAP  $sAP
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pdf $pdf)
+    public function update(Request $request, SAP $SAP)
     {
         //
     }
@@ -83,24 +82,11 @@ class PdfController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Filename  $filename
+     * @param  \App\SAP  $sAP
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pdf $pdf)
+    public function destroy(SAP $SAP)
     {
         //
-    }
-
-    private function validateData()
-    {
-        return request()->validate([
-            'name' => 'required',
-        ]);
-    }
-
-    public function pdf(Pdf $pdf)
-    {
-        $pdfFile = PDFILE::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif'])->loadView('pdf.show', compact('pdf'));
-        return $pdfFile->download('closeout.pdf');
     }
 }
