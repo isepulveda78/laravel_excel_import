@@ -89,4 +89,9 @@ class SAPController extends Controller
     {
         //
     }
+
+    public function list(SAP $SAP)
+    {
+        return view('sap.show')->with('pdf', $pdf);
+    }
 }

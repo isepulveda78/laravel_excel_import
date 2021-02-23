@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if($files->count() > 0)
             <div class="card">
-                <div class="card-header">Create PDF</div>
-
+                <div class="card-header">Create PDF from Excel</div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -27,8 +27,6 @@
                             @endforeach
                         </div>
                     @endif
-             
-
                    <form action="{{ isset($pdf) ? route('pdf.update', $filename->id) : route('pdf.store') }}" method="post">
                         @csrf
                         @if(isset($post))
@@ -40,7 +38,7 @@
                                 <input type="text" class="form-control" name="name">
                               </div>
                         </div>
-                        @if($files->count() > 0)
+                 
                         <div class="form-group">
                             <label for="file">Search and select fields</label>
                             <select name="file[]" id="file" class="form-control file-selector"  multiple="multiple">
@@ -55,14 +53,19 @@
                                 </option>
                                 @endforeach
                             </select>
-                          </div>
-                          @endif
-
+                        </div>
                         <button type="submit" class="btn btn-primary">Create</button>
                    </form>
-                </button>
             </div>
         </div>
+        @else
+            <div class="jumbotron">
+                <h1 class="display-4">Want to create a PDF from Excel?</h1>
+                <hr class="my-4">
+                <p>Please upload excel sheet to create a PDF.</p>
+                <a class="btn btn-primary btn-lg" href="/pdf/create" role="button">Upload Excel Sheet</a>
+            </div>
+        @endif
     </div>
 </div>
 @endsection

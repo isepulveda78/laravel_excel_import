@@ -90,6 +90,7 @@ class SapFileController extends Controller
     private function validateData()
     {
         return request()->validate([
+            'name' => 'required',
             'sapfiles' => 'required',
         ]);
     }
@@ -100,7 +101,6 @@ class SapFileController extends Controller
         $sap_array = [];
         foreach(array_collapse($sap) as $sap_data) {
             array_push($sap_array,$sap_data['id']);
-            // User::find($friends_array)->notify(new AddUserToTask($task));
         }
     }
 

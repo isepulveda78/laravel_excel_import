@@ -1961,34 +1961,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'create',
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
+  props: ['status'],
   data: function data() {
     return {
       form: {
+        name: '',
         sapfiles: []
       },
-      sapfiles: []
+      sapfiles: [],
+      created: false,
+      empty: false
     };
   },
   methods: {
     post: function post() {
-      axios.post('/api/sapfile', this.form).then(function (res) {
-        console.log(res);
-      }).then(function (err) {
-        console.log(err);
-      });
+      var _this = this;
+
+      if (this.form.sapfiles.length > 0) {
+        axios.post('/api/sapfile', this.form).then(function (res) {
+          if (res) {
+            _this.form.name = '';
+            _this.form.sapfiles = [];
+            _this.created = true;
+            _this.empty = false;
+          }
+        }).then(function (err) {
+          console.log(err);
+        });
+      } else {
+        this.empty = true;
+      }
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("/data/files.json").then(function (response) {
-      return _this.sapfiles = response.data;
+      return _this2.sapfiles = response.data;
     }).then(function (error) {
       return console.log(error);
     });
@@ -37674,6 +37708,30 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _vm.created
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "alert alert-success", attrs: { role: "alert" } },
+            [_vm._v("\n        PDF Created\n        ")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.empty
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+            [
+              _vm._v(
+                "\n            Must select SAP data to build PDF.\n        "
+              )
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
         _vm._v("\n            Create PDF from SAP\n        ")
@@ -37691,15 +37749,59 @@ var render = function() {
             }
           },
           [
+            _c("div", { staticClass: "mb-3" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "name" } },
+                [_vm._v("Name")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.name,
+                    expression: "form.name"
+                  }
+                ],
+                ref: "name",
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "name",
+                  "aria-describedby": "name",
+                  required: ""
+                },
+                domProps: { value: _vm.form.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "sap" } },
+                  [_vm._v("SAP Data")]
+                ),
+                _vm._v(" "),
                 _c("multiselect", {
                   attrs: {
                     multiple: true,
                     "track-by": "upc",
                     label: "upc",
-                    options: _vm.sapfiles
+                    options: _vm.sapfiles,
+                    "clear-on-select": false,
+                    "allow-empty": false
                   },
                   model: {
                     value: _vm.form.sapfiles,

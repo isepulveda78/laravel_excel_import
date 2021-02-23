@@ -15,6 +15,7 @@ class CreateSapFileTable extends Migration
     {
         Schema::create('sap_files', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->json('sapfiles');
             $table->timestamps();
         });
